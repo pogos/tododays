@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name tododaysFrontendApp
+ * @name yeomanApp
  * @description
- * # tododaysFrontendApp
+ * # yeomanApp
  *
  * Main module of the application.
  */
 angular
-  .module('tododaysFrontendApp', [
+  .module('yeomanApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
