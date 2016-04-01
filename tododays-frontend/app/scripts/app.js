@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular
-  .module('yeomanApp', [
+  .module('tododaysApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',

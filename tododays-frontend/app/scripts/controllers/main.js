@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the yeomanApp
  */
-angular.module('yeomanApp')
+angular.module('tododaysApp')
   .controller('MainCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
