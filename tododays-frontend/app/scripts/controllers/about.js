@@ -8,7 +8,7 @@
  * Controller of the yeomanApp
  */
 angular.module('tododaysApp')
-  .controller('AboutCtrl', function () {
+  .controller('AboutController', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

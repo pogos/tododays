@@ -5,16 +5,16 @@
 'use strict';
 
 angular.module('tododaysApp')
-  .controller('MenuCtrl', function ($scope, $location) {
+  .controller('MenuController', function ($scope, $location) {
 
     $scope.menuItems = [
-      {label: 'Home', path: '/'},
+      {label: 'Tasks', path: '/tasks'},
       {label: 'About', path: '/about'},
       {label: 'Contact', path: ''}
     ];
 
 
     $scope.isActive = function(item) {
-      return $location.path() === item.path ? 'active' : ''
+      return $location.path() === item.path ? 'active' : '';
     };
   });

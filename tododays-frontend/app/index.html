@@ -33,10 +33,10 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">Tododays</a>
+            <a class="navbar-brand glyphicon glyphicon-home" href="#/"></a>
           </div>
 
-          <div class="collapse navbar-collapse" id="js-navbar-collapse" ng-controller="MenuCtrl">
+          <div class="collapse navbar-collapse" id="js-navbar-collapse" ng-controller="MenuController">
 
             <ul class="nav navbar-nav">
               <li ng-repeat="item in menuItems" ng-class="isActive(item)">
@@ -92,6 +92,11 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/menu.js"></script>
+        <script src="scripts/controllers/tasks.js"></script>
+
+        <script src="scripts/services/tasksService.js"></script>
+
+
         <!-- endbuild -->
 </body>
 </html>
