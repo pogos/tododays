@@ -10,7 +10,6 @@ angular.module('tododaysApp')
 
       console.log('Login');
       if (LoginService.authenticate($scope.credentials)) {
-        //TODO change view
         $scope.error = false;
         $rootScope.authenticated = true;
         $rootScope.username = $scope.credentials.username;
