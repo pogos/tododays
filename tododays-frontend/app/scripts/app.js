@@ -39,6 +39,16 @@ angular
         controller: 'TaskController',
         controllerAs: 'tasks'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginController',
+        controllerAs: 'tasks'
+      })
+      .when('/register', {
+        templateUrl: 'views/register.html',
+        controller: 'TaskController',
+        controllerAs: 'tasks'
+      })
       .otherwise({
         redirectTo: '/'
       });

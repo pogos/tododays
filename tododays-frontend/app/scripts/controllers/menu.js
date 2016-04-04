@@ -17,4 +17,5 @@ angular.module('tododaysApp')
     $scope.isActive = function(item) {
       return $location.path() === item.path ? 'active' : '';
     };
+
   });

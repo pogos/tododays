@@ -44,7 +44,17 @@
               </li>
               <!--<li class="active"><a href="#/">Home</a></li>-->
               <!--<li><a ng-href="#/about">About</a></li>-->
-              <!--<li><a ng-href="#/">Contact</a></li>-->
+              <!-- User profile -->
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-controller="LoginController">
+              <li>
+                <a ng-href="#/login" ng-show="!isAuthenticated()">Login</a>
+                <a ng-href="#/profile" ng-show="isAuthenticated()">{{ getCurrentUser() }}</a>
+              </li>
+              <li>
+                <a ng-href="#/logout" ng-show="isAuthenticated()" ng-click="logout()">Logout</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -93,8 +103,10 @@
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/menu.js"></script>
         <script src="scripts/controllers/tasks.js"></script>
+        <script src="scripts/controllers/login.js"></script>
 
-        <script src="scripts/services/tasksService.js"></script>
+        <script src="scripts/services/tasks.service.js"></script>
+        <script src="scripts/services/user.service.js"></script>
 
 
         <!-- endbuild -->
