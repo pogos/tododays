@@ -3,21 +3,21 @@
 describe('Controller: MainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('yeomanApp'));
+  beforeEach(module('tododaysApp'));
 
-  var MainCtrl,
+  var MainController,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    MainController = $controller('MainController', {
       $scope: scope
       // place here mocked dependencies
     });
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    expect(MainCtrl.awesomeThings.length).toBe(3);
+    expect(scope.tasks.length).toBe(5);
   });
 });
