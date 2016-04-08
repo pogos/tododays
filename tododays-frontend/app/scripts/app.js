@@ -48,6 +48,10 @@ angular
         templateUrl: 'views/register.html',
         controller: 'TaskController',
         controllerAs: 'tasks'
+      }).when('/users', {
+        templateUrl: 'views/users.html',
+        controller: 'UserController',
+        controllerAs: 'user'
       })
       .otherwise({
         redirectTo: '/'
