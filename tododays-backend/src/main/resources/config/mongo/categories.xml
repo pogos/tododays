@@ -1,0 +1,19 @@
+<mongoChangeLog>
+    <changeSet changeId="Category-1" author="pogos">
+        <script>
+            db.CATEGORY.insert(
+            {
+                "name": "TASK",
+                "description": "Simple task",
+                "readOnly": "true"
+            });
+            db.CATEGORY.insert(
+            {
+            "name": "DATE",
+            "description": "Cyclic information",
+            "readOnly": "true"
+            });
+
+        </script>
+    </changeSet>
+</mongoChangeLog>

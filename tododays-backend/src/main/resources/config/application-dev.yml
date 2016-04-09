@@ -1,0 +1,23 @@
+#server:
+#    port: 8080
+
+liquibase:
+    context: dev
+
+spring:
+    profiles:
+        active: dev
+    datasource:
+        platform = hsqldb
+    jpa:
+        generate-ddl = false
+        hibernate.ddl-auto = none
+    messages:
+        cache-seconds: 1
+
+logging:
+    level:
+        ROOT: INFO
+        #org.springframework: 'INFO'
+
+
