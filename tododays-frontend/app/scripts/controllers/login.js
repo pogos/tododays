@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tododaysApp')
-  .controller('LoginController', function ($scope, LoginService, $rootScope, $location) {
+  .controller('LoginController', function ($scope, UserService, $rootScope, $location) {
 
     $scope.error = false;
     $scope.credentials = {};
@@ -9,7 +9,7 @@ angular.module('tododaysApp')
     $scope.login = function() {
 
       console.log('Login');
-      if (LoginService.authenticate($scope.credentials)) {
+      if (UserService.authenticate($scope.credentials)) {
         $scope.error = false;
         $rootScope.authenticated = true;
         $rootScope.username = $scope.credentials.username;
@@ -33,7 +33,7 @@ angular.module('tododaysApp')
     $scope.logout = function() {
       $rootScope.authenticated = false;
       $rootScope.username = '';
-    }
+    };
 
 
   });

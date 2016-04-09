@@ -1,14 +1,27 @@
 'use strict';
 
-angular.module('tododaysApp').service('LoginService', function () {
+angular.module('tododaysApp').service('UserService', function () {
 
-  this.user = {username: 'admin', password: 'koala'};
+  this.users = [{username: 'admin', password: 'koala'}];
+
 
   this.authenticate = function(credentials) {
-    if (this.user.username === credentials.username && (this.user.password === credentials.password)) {
-      return true;
+    var user = this.findUserByName(credentials.username);
+    return (user !== null && (user.password === credentials.password));
+  };
+
+  this.register = function(user) {
+    this.users.add(user);
+  };
+
+  this.findUserByName = function(userName) {
+    var i = 0, len = this.users.length;
+    for (; i < len; i++) {
+      if (this.users[i].username === userName) {
+        return this.users[i];
+      }
+      return null;
     }
-    return false;
   };
 
 });
