@@ -2,10 +2,15 @@ package pl.pogos.tododays.controller;
 
 import org.junit.Test;
 
+import javax.inject.Inject;
+
 /**
- * Created by SG0952928 on 2016-04-12.
+ * Created by Sebastian on 07.04.2016.
  */
 public class UserControllerTest {
+
+    @Inject
+    private UserController userController;
 
     @Test
     public void shouldCreateUser() {
@@ -24,6 +29,11 @@ public class UserControllerTest {
 
     @Test
     public void shouldGetUser() {
+
+    }
+
+    @Test
+    public void shouldGetCurrentUser() {
 
     }
 

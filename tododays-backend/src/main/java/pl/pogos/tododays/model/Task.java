@@ -1,7 +1,5 @@
 package pl.pogos.tododays.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.Set;
@@ -9,10 +7,9 @@ import java.util.Set;
 /**
  * Created by Sebastian on 14.03.2016.
  */
-@Document(collection = "TASK")
 public class Task {
 
-    @Id
+
     private String id;
 
     private String name;

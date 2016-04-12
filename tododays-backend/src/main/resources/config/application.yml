@@ -1,0 +1,23 @@
+server:
+    port: 8080
+
+liquibase:
+    context: dev
+
+spring:
+    profiles:
+        active: dev
+    data:
+        mongodb:
+            host: localhost
+            port: 27017
+            database: tododays
+    messages:
+        cache-seconds: 1
+
+logging:
+    level:
+        ROOT: DEBUG
+        #org.springframework: 'DEBUG'
+
+

@@ -25,10 +25,10 @@ public class Application {
     public static void main(String[] args) throws UnknownHostException {
         SpringApplication app = new SpringApplication(Application.class);
         app.setBannerMode(Banner.Mode.LOG);
-        SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
+        //SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
         //addDefaultProfile(app, source);
         Environment env = app.run(args).getEnvironment();
-        String serverPort = env.getProperty("server.port") != null ? env.getProperty("server.port") : "8080";
+        String serverPort = env.getProperty("server.port") != null ? env.getProperty("server.port") : "";
         LOGGER.info("Access URLs:\n----------------------------------------------------------\n\t" +
                         "Local: \t\thttp://127.0.0.1:{}\n\t" +
                         "External: \thttp://{}:{}\n----------------------------------------------------------",
