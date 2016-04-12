@@ -19,5 +19,9 @@ angular.module('tododaysApp')
         return this.tasks.slice(0, 5);
       };
 
+      this.getTasks = function () {
+        return this.tasks;
+      };
+
     }
   );

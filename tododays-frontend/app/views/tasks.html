@@ -1,0 +1,27 @@
+<div class="jumbotron">
+  <h3>All your tasks</h3>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <td>No</td>
+      <td>Priority</td>
+      <td>Name</td>
+      <td>Description</td>
+      <td>Status</td>
+      <td>Category</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="task in tasks">
+      <td>{{$index + 1}}</td>
+      <td>{{task.priority}}</td>
+      <td>{{task.name}}</td>
+      <td>{{task.description}}</td>
+      <td>{{task.status}}</td>
+      <td>{{task.category}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

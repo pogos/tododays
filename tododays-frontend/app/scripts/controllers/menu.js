@@ -9,8 +9,8 @@ angular.module('tododaysApp')
 
     $scope.menuItems = [
       {label: 'Tasks', path: '/tasks'},
-      {label: 'About', path: '/about'},
-      {label: 'Contact', path: ''},
+      //{label: 'About', path: '/about'},
+      //{label: 'Contact', path: ''},
       {label: 'Users', path: '/users'}
     ];
 

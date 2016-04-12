@@ -8,14 +8,15 @@ angular.module('tododaysApp')
     $scope.user = {};
 
     $scope.register = function() {
-      if (this.validate()) {//TODO fix me
+      console.log('register user: ' + $scope.user);
+      if ($scope.validate()) {//TODO fix me
         UserService.register($scope.user);
       } else {
 
       }
     };
 
-    this.validate = function() {
+    $scope.validate = function() {
 
     };
 

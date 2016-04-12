@@ -37,7 +37,7 @@ angular
       .when('/tasks', {
         templateUrl: 'views/tasks.html',
         controller: 'TaskController',
-        controllerAs: 'tasks'
+        controllerAs: 'tasksCtrl'
       })
       .when('/login', {
         templateUrl: 'views/login.html',
@@ -46,8 +46,8 @@ angular
       })
       .when('/register', {
         templateUrl: 'views/register.html',
-        controller: 'TaskController',
-        controllerAs: 'tasks'
+        controller: 'RegisterController',
+        controllerAs: 'reg'
       }).when('/users', {
         templateUrl: 'views/users.html',
         controller: 'UserController',
