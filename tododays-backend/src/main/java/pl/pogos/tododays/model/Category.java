@@ -1,9 +1,7 @@
 package pl.pogos.tododays.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 /**
@@ -14,6 +12,8 @@ import javax.validation.constraints.Size;
 public class Category {
 
     @Id
+    @GeneratedValue(generator = "CATEGORY_SG", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "CATEGORY_SG", initialValue = 50)
     private Long id;
 
     @Size(max = 100)
