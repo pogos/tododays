@@ -1,15 +1,20 @@
 package pl.pogos.tododays.model;
 
 
+import javax.persistence.*;
+
 /**
  * Created by Sebastian on 07.04.2016.
  */
 
-
+@Entity
+@Table(name = "USER")
 public class User {
 
-
-    private String id;
+    @Id
+    @GeneratedValue(generator = "USER_SEQ", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "USER_SEQ", sequenceName = "USER_SEQ", initialValue = 50)
+    private Long id;
 
     private String login;
     private String password;
@@ -17,6 +22,14 @@ public class User {
     private String name;
 
     public User() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getLogin() {
@@ -43,11 +56,4 @@ public class User {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }

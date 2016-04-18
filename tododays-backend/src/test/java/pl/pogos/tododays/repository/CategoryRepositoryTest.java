@@ -11,9 +11,7 @@ import pl.pogos.tododays.model.Category;
 
 import javax.inject.Inject;
 
-/**
- * Created by SG0952928 on 2016-04-13.
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {DatabaseConfiguration.class})
 @WebAppConfiguration

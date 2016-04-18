@@ -1,16 +1,21 @@
 package pl.pogos.tododays.model;
 
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
 /**
  * Created by Sebastian on 14.03.2016.
  */
+@Entity
+@Table(name = "TASK")
 public class Task {
 
-
-    private String id;
+    @Id
+    @GeneratedValue(generator = "TASK_SEQ", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "TASK_SEQ", sequenceName = "TASK_SEQ", initialValue = 50)
+    private Long id;
 
     private String name;
 
@@ -28,18 +33,22 @@ public class Task {
 
     private TaskPriority priority;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "TASK_TAGS")
     private Set<Tag> tags;
 
     public Task() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

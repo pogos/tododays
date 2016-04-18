@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = {"pl.pogos.tododays.repository"})
 @EntityScan(basePackages = {"pl.pogos.tododays.model"})
-@EnableTransactionManagement
+//@EnableTransactionManagement
 public class DatabaseConfiguration {
 
 }
