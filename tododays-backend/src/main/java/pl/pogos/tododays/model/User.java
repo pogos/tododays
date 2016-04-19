@@ -3,9 +3,6 @@ package pl.pogos.tododays.model;
 
 import javax.persistence.*;
 
-/**
- * Created by Sebastian on 07.04.2016.
- */
 
 @Entity
 @Table(name = "USER")
