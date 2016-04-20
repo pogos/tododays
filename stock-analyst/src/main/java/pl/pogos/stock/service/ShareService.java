@@ -1,9 +1,17 @@
 package pl.pogos.stock.service;
 
-/**
- * Created by SG0952928 on 2016-04-12.
- */
+import org.springframework.stereotype.Service;
+import pl.pogos.stock.model.Share;
+import pl.pogos.stock.repository.ShareRepository;
+import javax.inject.Inject;
+
+@Service
 public class ShareService {
 
+    @Inject
+    private ShareRepository shareRepository;
 
+    public Share createShare(Share share) {
+        return shareRepository.save(share);
+    }
 }

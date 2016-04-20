@@ -1,19 +1,15 @@
 package pl.pogos.stock.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by SG0952928 on 2016-04-12.
- */
 @Entity
 @Table(name = "SHARE")
 public class Share {
 
     @Id
+    @GeneratedValue(generator = "SHARE_SEQ", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "SHARE_SEQ", sequenceName = "SHARE_SEQ")
     private Long id;
 
     @NotNull
