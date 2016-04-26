@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.pogos.tododays.config.ControllerConfiguration;
 import pl.pogos.tododays.config.DatabaseConfiguration;
+import pl.pogos.tododays.model.User;
 
 import javax.inject.Inject;
 
@@ -53,10 +54,14 @@ public class UserControllerTest {
 
     @Test
     public void shouldCreateUser() throws Exception {
+//        User user = new User();
+//        user.setLogin("test");
+//        user.setName("Test 2");
+//        user.setPassword("password");
         mockMvc.perform(
                 post("/api/user")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{login: \"admin\", password: \"koala\", name: \"First Administrator\"}")
+                .content("{\"login\": \"admin\", \"password\": \"koala\", \"name\": \"First Administrator\"}")
         ).andExpect(status().isOk());
     }
 
@@ -99,11 +104,6 @@ public class UserControllerTest {
                 this.mappingJackson2HttpMessageConverter);
     }
 
-    protected String json(Object o) throws IOException {
-        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-        this.mappingJackson2HttpMessageConverter.write(
-                o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
-        return mockHttpOutputMessage.getBodyAsString();
-    }
+
 
 }
