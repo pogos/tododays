@@ -12,6 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 import pl.pogos.tododays.config.ControllerConfiguration;
 import pl.pogos.tododays.config.DatabaseConfiguration;
 import pl.pogos.tododays.config.SampleDataConfiguration;
+import pl.pogos.tododays.config.ServiceConfiguration;
 
 import javax.inject.Inject;
 
@@ -19,7 +20,9 @@ import javax.inject.Inject;
 @SpringApplicationConfiguration(classes = {
         DatabaseConfiguration.class,
         ControllerConfiguration.class,
-        SampleDataConfiguration.class})
+        SampleDataConfiguration.class,
+        ServiceConfiguration.class
+    })
 @WebAppConfiguration()
 @ActiveProfiles("loadData")
 public abstract class AbstractControllerTest {
