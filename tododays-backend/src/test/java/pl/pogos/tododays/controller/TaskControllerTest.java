@@ -2,14 +2,25 @@ package pl.pogos.tododays.controller;
 
 import org.junit.Test;
 
-/**
- * Created by SG0952928 on 2016-04-12.
- */
-public class TaskControllerTest {
+import static org.fest.assertions.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
+public class TaskControllerTest extends AbstractControllerTest {
+
 
     @Test
-    public void shouldReturnListOfTasks() {
+    public void shouldReturnListOfTasks() throws Exception {
+        //GIVEN
 
+        //WHEN
+        final String response = mockMvc.perform(get("/api/tasks"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        //THAN
+        assertThat(response).isNotEmpty();
     }
 
     @Test

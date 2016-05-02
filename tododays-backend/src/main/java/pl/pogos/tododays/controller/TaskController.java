@@ -6,18 +6,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pl.pogos.tododays.dto.ResponseDTO;
 import pl.pogos.tododays.dto.TaskDTO;
+import pl.pogos.tododays.model.Task;
+import pl.pogos.tododays.repository.TaskRepository;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
 
-/**
- * Created by SG0952928 on 2016-04-12.
- */
+
 @RestController
 @RequestMapping("/api")
 public class TaskController {
 
+    private TaskRepository taskRepository;
+
     @RequestMapping(value = "/tasks", method = RequestMethod.GET)
     public ResponseEntity<TaskDTO> getTasks() {
+        final List<Task> tasks = taskRepository.findAll();
+
         return null;
     }
 
