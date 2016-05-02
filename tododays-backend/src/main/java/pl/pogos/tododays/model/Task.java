@@ -2,15 +2,14 @@ package pl.pogos.tododays.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-/**
- * Created by Sebastian on 14.03.2016.
- */
+
 @Entity
 @Table(name = "TASK")
-public class Task {
+public class Task implements Serializable {
 
     @Id
     @GeneratedValue(generator = "TASK_SEQ", strategy = GenerationType.SEQUENCE)

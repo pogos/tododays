@@ -6,10 +6,8 @@ import pl.pogos.tododays.model.TaskStatus;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by SG0952928 on 2016-04-12.
- */
-public class TaskDTO extends ResponseDTO implements Serializable {
+
+public class TaskDTO extends ResponseDTO {
 
     private Long id;
 

@@ -1,10 +1,11 @@
 package pl.pogos.tododays.service;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.pogos.tododays.dto.TaskDTO;
 import pl.pogos.tododays.model.Task;
@@ -19,11 +20,16 @@ import static org.fest.assertions.Assertions.assertThat;
 public class ConverterServiceTest {
 
 
-    @Mock
-    private DozerBeanMapper dozerBeanMapper;
+    @Spy
+    private Mapper mapper = new DozerBeanMapper();
 
     @InjectMocks
     private ConverterService converterService;
+
+    @Before
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void shouldConvertTaskToTaskDTO() {
@@ -36,15 +42,15 @@ public class ConverterServiceTest {
         task.setPriority(TaskPriority.NORMAL);
 
         //WHEN
-        final TaskDTO taskDTO = converterService.<TaskDTO>convert(task);
+        final TaskDTO taskDTO = converterService.convert(task, TaskDTO.class);
 
         //THEN
         assertThat(taskDTO).isNotNull();
-        assertThat(taskDTO.getName()).equals(task.getName());
-        assertThat(taskDTO.getDescription()).equals(task.getDescription());
-        assertThat(taskDTO.getStatus()).equals(task.getStatus());
-        assertThat(taskDTO.getCreateDate()).equals(task.getCreateDate());
-        assertThat(taskDTO.getPriority()).equals(task.getPriority());
+        assertThat(taskDTO.getName()).isEqualTo(task.getName());
+        assertThat(taskDTO.getDescription()).isEqualTo(task.getDescription());
+        assertThat(taskDTO.getStatus()).isEqualTo(task.getStatus());
+        assertThat(taskDTO.getCreateDate()).isEqualTo(task.getCreateDate());
+        assertThat(taskDTO.getPriority()).isEqualTo(task.getPriority());
     }
 
 
