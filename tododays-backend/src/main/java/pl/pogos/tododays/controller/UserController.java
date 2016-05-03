@@ -24,13 +24,15 @@ public class UserController {
 
         Optional<User> userOptional = Optional.ofNullable(userRepository.findOne(id));
         HttpStatus status;
+        User user = null;
         if (userOptional.isPresent()) {
             status = HttpStatus.OK;
-
+            user = userOptional.get();
+            user.setPassword(null);
         } else {
             status = HttpStatus.NOT_FOUND;
         }
-        return new ResponseEntity<>(userOptional.orElse(null), status);
+        return new ResponseEntity<>(user, status);
     }
 
     @RequestMapping(value = "/api/user", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})

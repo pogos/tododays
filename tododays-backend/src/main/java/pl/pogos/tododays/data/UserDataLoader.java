@@ -13,12 +13,18 @@ public class UserDataLoader implements DataLoader {
     @Inject
     private UserRepository userRepository;
 
+    private User defaultUser;
+
     @Override
     public void loadData() {
-        User user = new User();
-        user.setLogin("admin");
-        user.setName("Admin");
-        user.setPassword("koala");
-        userRepository.save(user);
+        defaultUser = new User();
+        defaultUser.setLogin("admin");
+        defaultUser.setName("Admin");
+        defaultUser.setPassword("koala");
+        userRepository.save(defaultUser);
+    }
+
+    public User getDefaultUser() {
+        return defaultUser;
     }
 }

@@ -1,7 +1,12 @@
 package pl.pogos.tododays.controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,6 +20,7 @@ import pl.pogos.tododays.config.SampleDataConfiguration;
 import pl.pogos.tododays.config.ServiceConfiguration;
 
 import javax.inject.Inject;
+import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {
@@ -27,11 +33,15 @@ import javax.inject.Inject;
 @ActiveProfiles("loadData")
 public abstract class AbstractControllerTest {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractControllerTest.class);
+
     @Inject
     protected WebApplicationContext context;
 
 
-    protected MockMvc mockMvc;
+    MockMvc mockMvc;
+
+    private ObjectMapper objectMapper  = new ObjectMapper();
 
     @Before
     public void setup() {
@@ -39,6 +49,31 @@ public abstract class AbstractControllerTest {
                 .webAppContextSetup(context)
                 //.apply(springSecurity())
                 .build();
+
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
+
+    public String toJson(Object source) {
+        String result = null;
+        try {
+            result = objectMapper.writeValueAsString(source);
+        }
+        catch (JsonProcessingException e) {
+            LOGGER.error("Can't convert object to json", e);
+        }
+        return result;
+    }
+
+    public <T> T toObject(String json, Class<T> clazz)  {
+        T result = null;
+        try {
+            result = objectMapper.readValue(json, clazz);
+        }
+        catch (IOException e) {
+            LOGGER.error("Can't convert json to object", e);
+        }
+        return result;
+    }
+
 
 }
