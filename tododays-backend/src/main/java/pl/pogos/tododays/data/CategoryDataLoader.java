@@ -5,18 +5,21 @@ import pl.pogos.tododays.model.Category;
 import pl.pogos.tododays.repository.CategoryRepository;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class CategoryDataLoader implements DataLoader{
 
-    public static final String [] CATEGORY_NAMES = {"Test", "Test 1", "Test 2"};
+    private final List<String> categoryNames = Arrays.asList("Test", "Test 1", "Test 2");
 
     @Inject
     private CategoryRepository categoryRepository;
 
     @Override
     public void loadData() {
-        for (String name :  CATEGORY_NAMES) {
+        for (String name : categoryNames) {
             categoryRepository.save(createCategory(name));
         }
     }
@@ -27,5 +30,9 @@ public class CategoryDataLoader implements DataLoader{
         category.setDescription(name + " desc");
         category.setReadOnly(true);
         return category;
+    }
+
+    public List<String> getCategoryNames() {
+        return categoryNames;
     }
 }

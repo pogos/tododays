@@ -11,9 +11,6 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by Sebastian on 20.03.2016.
- */
 @RestController
 public class CategoryController {
 
@@ -21,21 +18,37 @@ public class CategoryController {
     private CategoryRepository categoryRepository;
 
     @RequestMapping(value = "/api/categories", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-    public List<Category> getCategories() {
-        return categoryRepository.findAll();
+    public ResponseEntity<List<Category>> getCategories() {
+        return new ResponseEntity<>(categoryRepository.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/category", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE}, consumes = { MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
-        Category cat = categoryRepository.save(category);
-        return new ResponseEntity<>(cat, HttpStatus.OK);
+    public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
+        Optional<Category> optionalCategory = categoryRepository.findByName(category.getName());
+        Category cat = null;
+        HttpStatus status;
+        if (optionalCategory.isPresent()) {
+            status = HttpStatus.CONFLICT;
+        } else {
+            cat = categoryRepository.save(category);
+            status = HttpStatus.OK;
+        }
+        return new ResponseEntity<>(cat, status);
     }
 
-    @RequestMapping(value = "/api/category/{name}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE}, consumes = { MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/api/category/{name}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Category> getCategory(@PathVariable("name") String name) {
         Optional<Category> category = categoryRepository.findByName(name);
+        Category result = null;
+        HttpStatus status;
+        if (category.isPresent()) {
+            result = category.get();
+            status = HttpStatus.OK;
+        } else {
+            status = HttpStatus.NOT_FOUND;
+        }
 
-        return null;
+        return new ResponseEntity<>(result, status);
     }
 
 

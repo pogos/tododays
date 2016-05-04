@@ -4,9 +4,6 @@ package pl.pogos.tododays.model;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
-/**
- * Created by Sebastian on 14.03.2016.
- */
 @Entity
 @Table(name = "CATEGORY")
 public class Category {
@@ -17,6 +14,7 @@ public class Category {
     private Long id;
 
     @Size(max = 100)
+    @Column(name = "NAME", nullable = false, unique = true)
     private String name;
 
     private String description;
