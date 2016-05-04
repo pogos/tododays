@@ -10,14 +10,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-/**
- * Created by Sebastian on 09.04.2016.
- */
 @Configuration
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = {"pl.pogos.tododays.repository"})
 @EntityScan(basePackages = {"pl.pogos.tododays.model"})
-//@EnableTransactionManagement
 public class DatabaseConfiguration {
 
 }

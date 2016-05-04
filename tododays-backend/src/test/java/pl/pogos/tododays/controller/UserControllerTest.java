@@ -11,6 +11,8 @@ import pl.pogos.tododays.repository.UserRepository;
 
 import javax.inject.Inject;
 
+import java.util.List;
+
 import static org.fest.assertions.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -31,13 +33,23 @@ public class UserControllerTest extends AbstractControllerTest{
         User user = createTestUser();
 
         //WHEN
-        mockMvc.perform(
+        final MvcResult mvcResult = mockMvc.perform(
                 post("/api/user")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(toJson(user))
-        ).andExpect(status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(toJson(user))
+        ).andExpect(status().isOk())
+                .andReturn();
 
         //THEN
+        final User resultUser = toObject(mvcResult.getResponse().getContentAsString(), User.class);
+        assertThat(resultUser.getId()).isNotNull();
+        assertThat(resultUser.getPassword()).isNull();
+
+        final User dbUser = userRepository.findOne(resultUser.getId());
+        assertThat(dbUser).isNotNull();
+        assertThat(dbUser.getName()).isEqualTo(user.getName());
+        assertThat(dbUser.getLogin()).isEqualTo(user.getLogin());
+
     }
 
     @Test
@@ -47,7 +59,8 @@ public class UserControllerTest extends AbstractControllerTest{
         //WHEN
         mockMvc.perform(
                 get("/api/user/0")
-        ).andExpect(status().isNotFound());
+        ).andExpect(status()
+                .isNotFound());
 
         //THEN
     }
@@ -80,9 +93,23 @@ public class UserControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void shouldGetUsers() {
+    public void shouldGetUsers() throws Exception {
+        //GIVEN
 
+        //WHEN
+        final String result = mockMvc.perform(
+                get("/api/users")
+        ).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        //THEN
+        List<User> users = toObjectsList(result, User.class);
+        assertThat(users).isNotNull();
+        assertThat(users).isNotEmpty();
+        assertThat(users.size()).isNotEqualTo(0);
     }
+
+
 
     @Test
     public void shouldGetCurrentUser() {

@@ -36,13 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 
-/**
- * Created by Sebastian on 23.03.2016.
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {DatabaseConfiguration.class, ControllerConfiguration.class, TestContext.class})
-@WebAppConfiguration()
-public class CategoryControllerTest {
+public class CategoryControllerTest extends AbstractControllerTest {
 
     @Inject
     private CategoryRepository categoryRepository;
@@ -120,6 +114,7 @@ public class CategoryControllerTest {
         //TODO add implementation
     }
 
+    @SuppressWarnings("unchecked")
     protected String json(Object o) throws IOException {
         MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
         this.mappingJackson2HttpMessageConverter.write(

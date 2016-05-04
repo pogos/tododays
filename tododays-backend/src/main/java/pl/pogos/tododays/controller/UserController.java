@@ -8,6 +8,7 @@ import pl.pogos.tododays.model.User;
 import pl.pogos.tododays.repository.UserRepository;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,9 +37,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "/api/user", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         userRepository.save(user);
-        return new ResponseEntity(HttpStatus.OK);
+        user.setPassword(null);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/users", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<User>> getUsers() {
+        final List<User> users = userRepository.findAll();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 

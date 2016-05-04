@@ -18,9 +18,11 @@ import pl.pogos.tododays.config.ControllerConfiguration;
 import pl.pogos.tododays.config.DatabaseConfiguration;
 import pl.pogos.tododays.config.SampleDataConfiguration;
 import pl.pogos.tododays.config.ServiceConfiguration;
+import pl.pogos.tododays.model.User;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {
@@ -53,7 +55,7 @@ public abstract class AbstractControllerTest {
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
-    public String toJson(Object source) {
+    protected String toJson(Object source) {
         String result = null;
         try {
             result = objectMapper.writeValueAsString(source);
@@ -64,13 +66,23 @@ public abstract class AbstractControllerTest {
         return result;
     }
 
-    public <T> T toObject(String json, Class<T> clazz)  {
+    protected <T> T toObject(String json, Class<T> clazz)  {
         T result = null;
         try {
             result = objectMapper.readValue(json, clazz);
         }
         catch (IOException e) {
             LOGGER.error("Can't convert json to object", e);
+        }
+        return result;
+    }
+
+    protected <T> List<T> toObjectsList(String jsonInput, Class<T> clazz) {
+        List<T> result = null;
+        try {
+            result = objectMapper.readValue(jsonInput, objectMapper.getTypeFactory().constructCollectionType(List.class, clazz));
+        } catch (IOException e) {
+            LOGGER.error("Can't convert json to list of objects");
         }
         return result;
     }
