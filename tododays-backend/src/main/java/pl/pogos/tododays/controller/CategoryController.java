@@ -20,7 +20,7 @@ public class CategoryController {
     @Inject
     private CategoryRepository categoryRepository;
 
-    @RequestMapping(value = "/api/category", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/api/categories", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
     public List<Category> getCategories() {
         return categoryRepository.findAll();
     }
@@ -31,8 +31,8 @@ public class CategoryController {
         return new ResponseEntity<>(cat, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/category/{name}", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE}, consumes = { MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Category> getCategory(@PathVariable String name) {
+    @RequestMapping(value = "/api/category/{name}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE}, consumes = { MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Category> getCategory(@PathVariable("name") String name) {
         Optional<Category> category = categoryRepository.findByName(name);
 
         return null;

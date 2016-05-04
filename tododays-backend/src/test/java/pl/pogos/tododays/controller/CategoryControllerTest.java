@@ -41,44 +41,13 @@ public class CategoryControllerTest extends AbstractControllerTest {
     @Inject
     private CategoryRepository categoryRepository;
 
-    @Inject
-    private WebApplicationContext webApplicationContext;
-
-    private MockMvc mockMvc;
-
-    private HttpMessageConverter mappingJackson2HttpMessageConverter;
-
-
-    @Before
-    public void setup() {
-        this.mockMvc = webAppContextSetup(webApplicationContext).build();
-
-        categoryRepository.deleteAllInBatch();
-
-    }
-
-    @Inject
-    void setConverters(HttpMessageConverter<?>[] converters) {
-
-        this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream().filter(
-                hmc -> hmc instanceof MappingJackson2HttpMessageConverter).findAny().get();
-
-        Assert.assertNotNull("the JSON message converter must not be null",
-                this.mappingJackson2HttpMessageConverter);
-    }
 
     @Test
     public void shouldGetCategory() throws Exception {
         //GIVEN
-        String categoryName = "Test name";
-        Category category = new Category();
-        category.setDescription("Test desc");
-        category.setName(categoryName);
-
-        categoryRepository.save(category);
 
         //WHEN
-        MvcResult mvcResult = mockMvc.perform(get("/api/category")
+        MvcResult mvcResult = mockMvc.perform(get("/api/categories")
         ).andExpect(status().isOk()).andReturn();
 
         //THEN
@@ -97,7 +66,7 @@ public class CategoryControllerTest extends AbstractControllerTest {
 
         //WHEN
         mockMvc.perform(post("/api/category")
-                .content(json(category))
+                .content(toJson(category))
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("utf-8")
         ).andExpect(status().isOk());
@@ -112,14 +81,6 @@ public class CategoryControllerTest extends AbstractControllerTest {
     @Test
     public void shouldThrowExceptionWhenCategoryNameAlreadyExists() {
         //TODO add implementation
-    }
-
-    @SuppressWarnings("unchecked")
-    protected String json(Object o) throws IOException {
-        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-        this.mappingJackson2HttpMessageConverter.write(
-                o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
-        return mockHttpOutputMessage.getBodyAsString();
     }
 
 }
