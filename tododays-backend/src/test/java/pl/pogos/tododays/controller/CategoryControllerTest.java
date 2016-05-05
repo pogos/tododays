@@ -3,6 +3,8 @@ package pl.pogos.tododays.controller;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import pl.pogos.tododays.data.CategoryDataLoader;
+import pl.pogos.tododays.dto.CategoryDTO;
+import pl.pogos.tododays.dto.CategoryListDTO;
 import pl.pogos.tododays.model.Category;
 import pl.pogos.tododays.repository.CategoryRepository;
 
@@ -43,7 +45,7 @@ public class CategoryControllerTest extends AbstractControllerTest {
         assertThat(result).isNotNull();
 
         Category dbCategory = categoryRepository.findByName(categoryName).orElse(null);
-        Category category = toObject(result, Category.class);
+        CategoryDTO category = toObject(result, CategoryDTO.class);
 
         assertThat(dbCategory.getName()).isEqualTo(category.getName());
         assertThat(dbCategory.getId()).isEqualTo(category.getId());
@@ -55,16 +57,17 @@ public class CategoryControllerTest extends AbstractControllerTest {
         //GIVEN
 
         //WHEN
-        String result = mockMvc.perform(get("/api/categories")
+        String result = mockMvc.perform(get("/api/categories/1/1")
         ).andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
         //THEN
-        List<Category> categories = toObjectsList(result, Category.class);
+        CategoryListDTO categories = toObject(result, CategoryListDTO.class);
         assertThat(categories).isNotNull();
-        assertThat(categories.size()).isGreaterThan(0);
+        assertThat(categories.getData()).isNotNull();
+        assertThat(categories.getData().size()).isGreaterThan(0);
 
     }
 

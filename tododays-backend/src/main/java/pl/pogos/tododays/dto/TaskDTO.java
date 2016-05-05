@@ -3,7 +3,6 @@ package pl.pogos.tododays.dto;
 import pl.pogos.tododays.model.TaskPriority;
 import pl.pogos.tododays.model.TaskStatus;
 
-import java.io.Serializable;
 import java.util.Date;
 
 

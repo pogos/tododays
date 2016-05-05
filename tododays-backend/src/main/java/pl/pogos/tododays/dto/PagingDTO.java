@@ -2,24 +2,28 @@ package pl.pogos.tododays.dto;
 
 import java.io.Serializable;
 
-/**
- * Created by SG0952928 on 2016-04-12.
- */
 public class PagingDTO implements Serializable {
-    private int startPage;
+    private int page;
     private int pageSize;
     private int pageNumber;
-    private int recordNumber;
+    private long recordNumber;
 
     public PagingDTO() {
     }
 
-    public int getStartPage() {
-        return startPage;
+    public PagingDTO(int page, int pageSize, int pageNumber, long recordNumber) {
+        this.page = page;
+        this.pageSize = pageSize;
+        this.pageNumber = pageNumber;
+        this.recordNumber = recordNumber;
     }
 
-    public void setStartPage(int startPage) {
-        this.startPage = startPage;
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
     }
 
     public int getPageSize() {
@@ -38,11 +42,11 @@ public class PagingDTO implements Serializable {
         this.pageNumber = pageNumber;
     }
 
-    public int getRecordNumber() {
+    public long getRecordNumber() {
         return recordNumber;
     }
 
-    public void setRecordNumber(int recordNumber) {
+    public void setRecordNumber(long recordNumber) {
         this.recordNumber = recordNumber;
     }
 }
