@@ -1,12 +1,14 @@
 package pl.pogos.tododays.dto;
 
-/**
- * Created by SG0952928 on 2016-04-12.
- */
-public class ErrorDTO {
+import java.io.Serializable;
+
+public class ErrorDTO implements Serializable {
 
     private int code;
     private String message;
+
+    public ErrorDTO() {
+    }
 
     public ErrorDTO(int code, String message) {
         this.code = code;
@@ -19,5 +21,24 @@ public class ErrorDTO {
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ErrorDTO)) return false;
+
+        ErrorDTO errorDTO = (ErrorDTO) o;
+
+        return getCode() == errorDTO.getCode() && (getMessage() != null
+                ? getMessage().equals(errorDTO.getMessage()) : errorDTO.getMessage() == null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getCode();
+        result = 31 * result + (getMessage() != null ? getMessage().hashCode() : 0);
+        return result;
     }
 }

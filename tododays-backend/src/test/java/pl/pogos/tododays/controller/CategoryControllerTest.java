@@ -5,13 +5,16 @@ import org.springframework.http.MediaType;
 import pl.pogos.tododays.data.CategoryDataLoader;
 import pl.pogos.tododays.dto.CategoryDTO;
 import pl.pogos.tododays.dto.CategoryListDTO;
+import pl.pogos.tododays.dto.ErrorDTO;
 import pl.pogos.tododays.model.Category;
 import pl.pogos.tododays.repository.CategoryRepository;
+import pl.pogos.tododays.util.ErrorHelper;
 
 import javax.inject.Inject;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -97,13 +100,19 @@ public class CategoryControllerTest extends AbstractControllerTest {
         Category category = createCategory(categoryName);
 
         //WHEN
-        mockMvc.perform(post("/api/category")
+        final String result = mockMvc.perform(post("/api/category")
                 .content(toJson(category))
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("utf-8")
-        ).andExpect(status().isConflict());
+        ).andExpect(status().isConflict())
+                .andReturn().getResponse().getContentAsString();
 
         //THEN
+        final CategoryDTO categoryDTO = toObject(result, CategoryDTO.class);
+        assertThat(categoryDTO).isNotNull();
+        final Set<ErrorDTO> errors = categoryDTO.getErrors();
+        assertThat(errors).isNotNull();
+        assertThat(errors).containsOnly(ErrorHelper.getError(ErrorHelper.ErrorType.CATEGORY_ALREADY_EXISTS));
     }
 
     private Category createCategory(String categoryName) {

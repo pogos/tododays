@@ -9,10 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.pogos.tododays.dto.CategoryDTO;
 import pl.pogos.tododays.dto.CategoryListDTO;
+import pl.pogos.tododays.dto.ErrorDTO;
 import pl.pogos.tododays.dto.PagingDTO;
 import pl.pogos.tododays.model.Category;
 import pl.pogos.tododays.repository.CategoryRepository;
 import pl.pogos.tododays.service.ConverterService;
+import pl.pogos.tododays.util.ErrorHelper;
+import pl.pogos.tododays.util.ErrorHelper.ErrorType;
 
 import javax.inject.Inject;
 import java.util.Optional;
@@ -49,10 +52,11 @@ public class CategoryController {
     @RequestMapping(value = "/api/category", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE}, consumes = { MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO category) {
         Optional<Category> optionalCategory = categoryRepository.findByName(category.getName());
-        CategoryDTO cat = null;
+        CategoryDTO cat;
         HttpStatus status;
         if (optionalCategory.isPresent()) {
             status = HttpStatus.CONFLICT;
+            cat = new CategoryDTO(ErrorHelper.getError(ErrorType.CATEGORY_ALREADY_EXISTS));
         } else {
             cat = converterService.convert(
                     categoryRepository.save(

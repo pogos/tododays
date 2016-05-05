@@ -14,6 +14,10 @@ public class CategoryDTO extends ResponseDTO {
     public CategoryDTO() {
     }
 
+    public CategoryDTO(ErrorDTO error) {
+        super(error);
+    }
+
     public Long getId() {
         return id;
     }
