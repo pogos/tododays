@@ -15,7 +15,7 @@ public class TaskControllerTest extends AbstractControllerTest {
         //GIVEN
 
         //WHEN
-        final String response = mockMvc.perform(get("/api/tasks"))
+        final String response = mockMvc.perform(get("/api/tasks/1/2"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 

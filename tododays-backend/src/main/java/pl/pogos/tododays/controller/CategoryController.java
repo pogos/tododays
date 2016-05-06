@@ -31,23 +31,12 @@ public class CategoryController {
 
     @RequestMapping(value = "/api/categories/{page}/{size}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<CategoryListDTO> getCategories(@PathVariable("page") Integer page, @PathVariable("size") Integer size ) {
-
-        Pageable pageable = new PageRequest(page, size);
-        final Page<Category> categories = categoryRepository.findAll(pageable);
-        CategoryListDTO categoryListDTO = getCategoryListResponse(page, size, categories);
+        final Page<Category> categories = categoryRepository.findAll(new PageRequest(page, size));
+        CategoryListDTO categoryListDTO = new CategoryListDTO();
+        categoryListDTO.fillResponseList(page, size, categories, converterService.convert(categories.getContent(), CategoryDTO.class));
         return new ResponseEntity<>(categoryListDTO, HttpStatus.OK);
     }
 
-    private CategoryListDTO getCategoryListResponse(Integer page, Integer size, Page<Category> categories) {
-        CategoryListDTO categoryListDTO = new CategoryListDTO();
-        categoryListDTO.setData(converterService.convert(categories.getContent(), CategoryDTO.class));
-        categoryListDTO.setPaging(new PagingDTO(page, size, categories.getTotalPages(), categories.getTotalElements()));
-        categoryListDTO.getPaging().setPageSize(size);
-        categoryListDTO.getPaging().setPage(page);
-        categoryListDTO.getPaging().setPageNumber(categories.getTotalPages());
-        categoryListDTO.getPaging().setRecordNumber(categories.getTotalElements());
-        return categoryListDTO;
-    }
 
     @RequestMapping(value = "/api/category", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE}, consumes = { MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO category) {

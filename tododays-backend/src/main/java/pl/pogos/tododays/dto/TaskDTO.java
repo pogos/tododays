@@ -100,4 +100,24 @@ public class TaskDTO extends ResponseDTO {
     public void setPriority(TaskPriority priority) {
         this.priority = priority;
     }
+
+    public static class TaskDTOBuilder {
+
+        private TaskDTO taskDTO = new TaskDTO();
+
+        public TaskDTOBuilder withName(String name) {
+            this.taskDTO.setName(name);
+            return this;
+        }
+
+        public TaskDTOBuilder withStatus(TaskStatus status) {
+            this.taskDTO.setStatus(status);
+            return this;
+        }
+
+        public TaskDTO build() {
+            return this.taskDTO;
+        }
+
+    }
 }
