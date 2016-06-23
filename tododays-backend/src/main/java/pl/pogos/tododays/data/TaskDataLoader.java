@@ -18,14 +18,19 @@ public class TaskDataLoader implements DataLoader {
 
     @Inject
     private ConverterService converterService;
+    private Task task;
 
     @Override
     public void loadData() {
-        final Task task = converterService.convert(new TaskDTO.TaskDTOBuilder()
+        task = converterService.convert(new TaskDTO.TaskDTOBuilder()
                         .withName("Task First")
                         .withStatus(TaskStatus.NEW)
                         .build(),
                 Task.class);
         taskRepository.save(task);
+    }
+
+    public Task getTask() {
+        return task;
     }
 }

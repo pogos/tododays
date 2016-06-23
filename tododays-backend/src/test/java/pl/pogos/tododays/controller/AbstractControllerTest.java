@@ -18,7 +18,6 @@ import pl.pogos.tododays.config.ControllerConfiguration;
 import pl.pogos.tododays.config.DatabaseConfiguration;
 import pl.pogos.tododays.config.SampleDataConfiguration;
 import pl.pogos.tododays.config.ServiceConfiguration;
-import pl.pogos.tododays.model.User;
 
 import javax.inject.Inject;
 import java.io.IOException;
