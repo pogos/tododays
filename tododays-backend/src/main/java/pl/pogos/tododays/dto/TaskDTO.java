@@ -3,6 +3,9 @@ package pl.pogos.tododays.dto;
 import pl.pogos.tododays.model.TaskPriority;
 import pl.pogos.tododays.model.TaskStatus;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 
@@ -10,6 +13,8 @@ public class TaskDTO extends ResponseDTO {
 
     private Long id;
 
+    @NotNull
+    @Size(min = 5, max = 255)
     private String name;
 
     private String description;

@@ -14,6 +14,7 @@ import pl.pogos.tododays.repository.TaskRepository;
 import pl.pogos.tododays.service.ConverterService;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -44,13 +45,8 @@ public class TaskController {
         return new ResponseEntity<>(converterService.convert(task, TaskDTO.class), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/task", method = RequestMethod.POST)
-    public ResponseEntity<TaskDTO> updateTask(TaskDTO task) {
-        return null;
-    }
-
-    @RequestMapping(value = "/task", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO task) {
+    @RequestMapping(value = "/task", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<TaskDTO> createTask(@Valid @RequestBody TaskDTO task) {
         final Task savedTask = taskRepository.save(converterService.convert(task, Task.class));
         return new ResponseEntity<>(converterService.convert(savedTask, TaskDTO.class), HttpStatus.OK);
     }

@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -43,7 +43,7 @@ public class TaskControllerTest extends AbstractControllerTest {
         TaskDTO task = createTestTask();
 
         //WHEN
-        final String result = mockMvc.perform(put("/api/task")
+        final String result = mockMvc.perform(post("/api/task")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(toJson(task)))
                 .andExpect(status().isOk())
