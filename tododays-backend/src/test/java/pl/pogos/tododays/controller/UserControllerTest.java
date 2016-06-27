@@ -1,16 +1,14 @@
 package pl.pogos.tododays.controller;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.pogos.tododays.data.UserDataLoader;
+import pl.pogos.tododays.dto.UserDTO;
 import pl.pogos.tododays.model.User;
 import pl.pogos.tododays.repository.UserRepository;
 
 import javax.inject.Inject;
-
 import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -30,7 +28,7 @@ public class UserControllerTest extends AbstractControllerTest{
     @Test
     public void shouldCreateUser() throws Exception {
         //GIVEN
-        User user = createTestUser();
+        UserDTO user = createTestUser();
 
         //WHEN
         final MvcResult mvcResult = mockMvc.perform(
@@ -41,7 +39,7 @@ public class UserControllerTest extends AbstractControllerTest{
                 .andReturn();
 
         //THEN
-        final User resultUser = toObject(mvcResult.getResponse().getContentAsString(), User.class);
+        final UserDTO resultUser = toObject(mvcResult.getResponse().getContentAsString(), UserDTO.class);
         assertThat(resultUser.getId()).isNotNull();
         assertThat(resultUser.getPassword()).isNull();
 
@@ -83,7 +81,7 @@ public class UserControllerTest extends AbstractControllerTest{
 
         //THEN
         String result = mvcResult.getResponse().getContentAsString();
-        User user = toObject(result, User.class);
+        UserDTO user = toObject(result, UserDTO.class);
 
         assertThat(user).isNotNull();
         assertThat(defaultUser.getId()).isEqualTo(user.getId());
@@ -103,25 +101,23 @@ public class UserControllerTest extends AbstractControllerTest{
                 .andReturn().getResponse().getContentAsString();
 
         //THEN
-        List<User> users = toObjectsList(result, User.class);
+        List<UserDTO> users = toObjectsList(result, UserDTO.class);
         assertThat(users).isNotNull();
         assertThat(users).isNotEmpty();
         assertThat(users.size()).isNotEqualTo(0);
     }
-
-
 
     @Test
     public void shouldGetCurrentUser() {
 
     }
 
-    private User createTestUser() {
-        User user = new User();
-        user.setLogin("test");
-        user.setName("Test 2");
-        user.setPassword("password");
-        return user;
+    private UserDTO createTestUser() {
+        return new UserDTO.UserBuilder()
+                .withLogin("test")
+                .withName("Test 2")
+                .withPassword("password")
+                .build();
     }
 
 
