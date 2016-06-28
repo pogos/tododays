@@ -10,6 +10,7 @@ import pl.pogos.tododays.repository.UserRepository;
 import pl.pogos.tododays.service.ConverterService;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/api/user", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
+    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO user) {
         User dbUser = converterService.convert(user, User.class);
         userRepository.save(dbUser);
         dbUser.setPassword(null);

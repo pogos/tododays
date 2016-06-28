@@ -1,11 +1,22 @@
 package pl.pogos.tododays.dto;
 
+import pl.pogos.tododays.validator.annotation.EmailValid;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class UserDTO {
 
     private Long id;
 
+    @NotNull
+    @Size(min = 5, max = 20)
     private String login;
     private String password;
+
+    @NotNull
+    @EmailValid
+    private String email;
 
     private String name;
 
@@ -44,6 +55,14 @@ public class UserDTO {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public static class UserBuilder {
 
         private UserDTO user = new UserDTO();
@@ -65,6 +84,11 @@ public class UserDTO {
 
         public UserBuilder withName(String name) {
             this.user.setName(name);
+            return this;
+        }
+
+        public UserBuilder withEmail(String email) {
+            this.user.setEmail(email);
             return this;
         }
 

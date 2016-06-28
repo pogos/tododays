@@ -114,9 +114,10 @@ public class UserControllerTest extends AbstractControllerTest{
 
     private UserDTO createTestUser() {
         return new UserDTO.UserBuilder()
-                .withLogin("test")
+                .withLogin("test1")
                 .withName("Test 2")
                 .withPassword("password")
+                .withEmail("email@o2.pl")
                 .build();
     }
 
