@@ -29,7 +29,10 @@ public class TaskControllerTest extends AbstractControllerTest {
         //GIVEN
 
         //WHEN
-        final String response = mockMvc.perform(get("/api/tasks/1/2"))
+        final String response = mockMvc.perform(get("/api/tasks")
+                .param("offset", "0")
+                .param("limit", "5")
+                )
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
@@ -43,7 +46,7 @@ public class TaskControllerTest extends AbstractControllerTest {
         TaskDTO task = createTestTask();
 
         //WHEN
-        final String result = mockMvc.perform(post("/api/task")
+        final String result = mockMvc.perform(post("/api/tasks/")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(toJson(task)))
                 .andExpect(status().isOk())
@@ -70,7 +73,7 @@ public class TaskControllerTest extends AbstractControllerTest {
         final Task task = taskDataLoader.getTask();
 
         //WHEN
-        final String result = mockMvc.perform(get("/api/task/" +  task.getId()))
+        final String result = mockMvc.perform(get("/api/tasks/" +  task.getId()))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         //THEN

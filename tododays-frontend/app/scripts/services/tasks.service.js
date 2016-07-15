@@ -24,4 +24,7 @@ angular.module('tododaysApp')
       };
 
     }
-  );
+  )
+  .factory('Task', function($resource) {
+    return $resource('/api/tasks/:id', {offset: 0, limit: 5});
+  }) ;

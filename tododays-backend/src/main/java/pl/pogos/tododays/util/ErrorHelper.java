@@ -5,7 +5,10 @@ import pl.pogos.tododays.dto.ErrorDTO;
 public class ErrorHelper {
 
     public enum ErrorType {
-        CATEGORY_ALREADY_EXISTS(1, "Category already exists");
+        USER_ALREADY_EXISTS(1, "User {0} already exists"),
+        CATEGORY_ALREADY_EXISTS(2, "Category {0} already exists"),
+        TASK_ALREADY_EXISTS(3, "Category already exists"),
+        TAG_ALREADY_EXISTS(4, "Category already exists");
 
         private final int code;
         private final String message;

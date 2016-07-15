@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.pogos.tododays.dto.ResponseDTO;
 import pl.pogos.tododays.dto.TaskDTO;
 import pl.pogos.tododays.dto.TaskListDTO;
 import pl.pogos.tododays.model.Task;
@@ -28,24 +27,31 @@ public class TaskController {
     @Inject
     private ConverterService converterService;
 
-    @RequestMapping(value = "/tasks/{page}/{size}", method = RequestMethod.GET)
-    public ResponseEntity<TaskListDTO> getTasks(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
-        final Page<Task> taskPage = taskRepository.findAll(new PageRequest(page, size));
+    @RequestMapping(value = "/tasks", method = RequestMethod.GET)
+    public ResponseEntity<TaskListDTO> getTasks(
+            @RequestParam("offset") Integer offset,
+            @RequestParam("limit") Integer limit) {
+        final Page<Task> taskPage = taskRepository.findAll(new PageRequest(offset, limit));
         List<TaskDTO> dtos = converterService.convert(taskPage.getContent(), TaskDTO.class);
 
         TaskListDTO result = new TaskListDTO();
-        result.fillResponseList(page, size, taskPage, dtos);
+        result.fillResponseList(offset, limit, taskPage, dtos);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/task/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tasks/top", method = RequestMethod.GET)
+    public ResponseEntity<TaskListDTO> getTopTasks(@RequestParam("limit") Integer number) {
+        return getTasks(0, number);
+    }
+
+    @RequestMapping(value = "/tasks/{id}", method = RequestMethod.GET)
     public ResponseEntity<TaskDTO> getTask(@PathVariable(value = "id") Long id) {
         final Task task = taskRepository.findOne(id);
         return new ResponseEntity<>(converterService.convert(task, TaskDTO.class), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/task", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @RequestMapping(value = "/tasks", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<TaskDTO> createTask(@Valid @RequestBody TaskDTO task) {
         final Task savedTask = taskRepository.save(converterService.convert(task, Task.class));
         return new ResponseEntity<>(converterService.convert(savedTask, TaskDTO.class), HttpStatus.OK);

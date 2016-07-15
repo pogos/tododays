@@ -34,6 +34,11 @@ angular
         controller: 'TaskController',
         controllerAs: 'tasks'
       })
+      .when('/tasks/add', {
+        templateUrl: 'views/addTask.html',
+        controller: 'TaskController',
+        controllerAs: 'tasks'
+      })
       .when('/tasks', {
         templateUrl: 'views/tasks.html',
         controller: 'TaskController',
