@@ -34,6 +34,7 @@ public class UserControllerTest extends AbstractControllerTest{
         final MvcResult mvcResult = mockMvc.perform(
                 post("/api/user")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .header("Authorization", "Bearer " + token)  //add security token
                         .content(toJson(user))
         ).andExpect(status().isOk())
                 .andReturn();
@@ -55,8 +56,8 @@ public class UserControllerTest extends AbstractControllerTest{
         //GIVEN
 
         //WHEN
-        mockMvc.perform(
-                get("/api/user/0")
+        mockMvc.perform(get("/api/user/0")
+                .header("Authorization", "Bearer " + token)  //add security token
         ).andExpect(status()
                 .isNotFound());
 
@@ -76,6 +77,7 @@ public class UserControllerTest extends AbstractControllerTest{
         //WHEN
         MvcResult mvcResult = mockMvc.perform(
                 get("/api/user/" + defaultUser.getId())
+                        .header("Authorization", "Bearer " + token)  //add security token
         ).andExpect(status().isOk())
                 .andReturn();
 
@@ -97,6 +99,7 @@ public class UserControllerTest extends AbstractControllerTest{
         //WHEN
         final String result = mockMvc.perform(
                 get("/api/users")
+                        .header("Authorization", "Bearer " + token)  //add security token
         ).andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 

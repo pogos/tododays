@@ -39,6 +39,7 @@ public class CategoryControllerTest extends AbstractControllerTest {
 
         //WHEN
         String result = mockMvc.perform(get("/api/category/" + URLEncoder.encode(categoryName, "UTF-8"))
+                .header("Authorization", "Bearer " + token)  //add security token
         ).andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
@@ -61,6 +62,7 @@ public class CategoryControllerTest extends AbstractControllerTest {
 
         //WHEN
         String result = mockMvc.perform(get("/api/categories/1/1")
+                .header("Authorization", "Bearer " + token)  //add security token
         ).andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
@@ -81,6 +83,7 @@ public class CategoryControllerTest extends AbstractControllerTest {
 
         //WHEN
         mockMvc.perform(post("/api/category")
+                .header("Authorization", "Bearer " + token)  //add security token
                 .content(toJson(category))
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("utf-8")
@@ -104,6 +107,7 @@ public class CategoryControllerTest extends AbstractControllerTest {
                 .content(toJson(category))
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("utf-8")
+                .header("Authorization", "Bearer " + token)  //add security token
         ).andExpect(status().isConflict())
                 .andReturn().getResponse().getContentAsString();
 

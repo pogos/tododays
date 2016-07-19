@@ -15,7 +15,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 public class TaskControllerTest extends AbstractControllerTest {
 
     @Inject
@@ -30,9 +29,10 @@ public class TaskControllerTest extends AbstractControllerTest {
 
         //WHEN
         final String response = mockMvc.perform(get("/api/tasks")
+                .header("Authorization", "Bearer " + token)  //add security token
                 .param("offset", "0")
                 .param("limit", "5")
-                )
+        )
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
@@ -48,6 +48,7 @@ public class TaskControllerTest extends AbstractControllerTest {
         //WHEN
         final String result = mockMvc.perform(post("/api/tasks/")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .header("Authorization", "Bearer " + token)  //add security token
                 .content(toJson(task)))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -73,7 +74,9 @@ public class TaskControllerTest extends AbstractControllerTest {
         final Task task = taskDataLoader.getTask();
 
         //WHEN
-        final String result = mockMvc.perform(get("/api/tasks/" +  task.getId()))
+        final String result = mockMvc.perform(get("/api/tasks/" + task.getId())
+                .header("Authorization", "Bearer " + token)  //add security token
+        )
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         //THEN
