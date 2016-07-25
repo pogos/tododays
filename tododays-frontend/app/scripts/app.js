@@ -35,7 +35,7 @@ angular
         controllerAs: 'tasks'
       })
       .when('/tasks/add', {
-        templateUrl: 'views/addTask.html',
+        templateUrl: 'views/editTask.html',
         controller: 'TaskController',
         controllerAs: 'tasks'
       })

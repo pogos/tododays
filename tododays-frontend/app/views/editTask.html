@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Add task</div>
+  <div class="panel-body">
+    <div class="alert alert-danger" ng-show="error">
+
+    </div>
+    <div>
+
+      <form class="form-group" name="addTaskForm" ng-submit="addTask()" novalidate>
+        <div class="form-group" ng-submit="addTask()">
+          <label for="name">Name</label>
+          <input id="name" class="form-control" type="text" name="name" ng-model="task.name" required
+                 ng-minlength="3" ng-maxlength="8"/>
+        <!--<span-->
+          <!--ng-show="registerForm.username.$touched && registerForm.username.$invalid">The username is required.</span>-->
+        </div>
+        <div class="form-group">
+          <label for="desc">Description</label>
+          <input id="desc" class="form-control" type="text" name="desc" ng-model="task.desc" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category"
+                  class="form-control"
+                  ng-init="task.category = task.category || categories[0].value"
+                  ng-model="task.category"
+                  ng-options="category.value as category.name for category in categories">
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="priority">Priority</label>
+          <select id="priority"
+                  class="form-control"
+                  ng-init="task.priority = task.priority || priorities[0].value"
+                  ng-model="task.category"
+                  ng-options="priority.value as priority.name for priority in priorities">
+          </select>
+
+
+        </div>
+        <div class="form-group">
+          <label for="tags">Tags</label>
+          <input id="tags" class="form-control" type="text" name="desc" ng-model="task.tags"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

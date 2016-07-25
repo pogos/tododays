@@ -7,6 +7,7 @@ angular.module('tododaysApp').service('UserService', function () {
 
   this.authenticate = function(credentials) {
     var user = this.findUserByName(credentials.username);
+
     return (user !== null && (user.password === credentials.password));
   };
 
