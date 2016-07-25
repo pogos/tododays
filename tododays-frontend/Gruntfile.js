@@ -12,6 +12,7 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+
   // Automatically load required Grunt tasks
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
@@ -26,6 +27,8 @@ module.exports = function (grunt) {
   };
 
   // Define the configuration for all the tasks
+  grunt.loadNpmTasks('grunt-connect-proxy');
+
   grunt.initConfig({
 
     // Project settings
@@ -71,15 +74,27 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
+        //middleware: function(connect) {
+        //  return [proxySnippet];
+        //},
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
         livereload: 35729
       },
+      proxies: [
+        {
+          context: '/api',
+          host: '127.0.0.1',
+          port: 8080,
+          https: false,
+          xforward: false
+        }
+      ],
       livereload: {
         options: {
           open: true,
           middleware: function (connect) {
-            return [
+            var middlewares = [
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -91,6 +106,8 @@ module.exports = function (grunt) {
               ),
               connect.static(appConfig.app)
             ];
+            middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
+            return middlewares;
           }
         }
       },
@@ -220,7 +237,7 @@ module.exports = function (grunt) {
             }
           }
       }
-    }, 
+    },
 
     // Renames files for browser caching purposes
     filerev: {
@@ -437,6 +454,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'postcss:server',
+      'configureProxies:server',
       'connect:livereload',
       'watch'
     ]);
