@@ -1,6 +1,7 @@
 package pl.pogos.tododays.controller;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import pl.pogos.tododays.util.ErrorHelper;
 import pl.pogos.tododays.util.ErrorHelper.ErrorType;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,14 +31,14 @@ public class CategoryController {
     @Inject
     private ConverterService converterService;
 
-    @RequestMapping(value = "/api/categories/{page}/{size}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<CategoryListDTO> getCategories(@PathVariable("page") Integer page, @PathVariable("size") Integer size ) {
-        final Page<Category> categories = categoryRepository.findAll(new PageRequest(page, size));
+    @RequestMapping(value = "/api/categories", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<CategoryListDTO> getCategories(@RequestParam("offset") Integer offset,
+                                                         @RequestParam("limit") Integer limit ) {
+        final Page<Category> categories = categoryRepository.findAll(new PageRequest(offset, limit));
         CategoryListDTO categoryListDTO = new CategoryListDTO();
-        categoryListDTO.fillResponseList(page, size, categories, converterService.convert(categories.getContent(), CategoryDTO.class));
+        categoryListDTO.fillResponseList(offset, limit, categories, converterService.convert(categories.getContent(), CategoryDTO.class));
         return new ResponseEntity<>(categoryListDTO, HttpStatus.OK);
     }
-
 
     @RequestMapping(value = "/api/category", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE}, consumes = { MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO category) {

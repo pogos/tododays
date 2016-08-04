@@ -94,7 +94,7 @@ public class OAuth2Configuration {
                     .authorizedGrantTypes("password", "refresh_token")
                     .secret("secret")
                     .refreshTokenValiditySeconds(900)
-                    .accessTokenValiditySeconds(10);
+                    .accessTokenValiditySeconds(900);
         }
     }
 }
